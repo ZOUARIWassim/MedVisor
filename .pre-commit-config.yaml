@@ -1,0 +1,48 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v6.0.0"
+    hooks:
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: no-commit-to-branch
+        args:
+          - --branch=master
+      - id: pretty-format-json
+        exclude: frontend/package.json
+        exclude_types: [jupyter]
+        args:
+          - --autofix
+          - --no-ensure-ascii
+      - id: trailing-whitespace
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.12.10"
+    hooks:
+      # Run the linter
+      - id: ruff
+        args:
+          - --fix
+          - --exit-non-zero-on-fix
+      # Run the formatter
+      - id: ruff-format
+        types_or: [ python, pyi ]
+  - repo: https://github.com/srstevenson/nb-clean
+    rev: 4.0.1
+    hooks:
+      - id: nb-clean
+        args: [--preserve-cell-outputs, --remove-empty-cells]
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: "v1.99.0"
+    hooks:
+      - id: terraform_validate
+      - id: terraform_fmt
+      - id: terraform_docs
+  - repo: https://github.com/biomejs/pre-commit
+    rev: "v0.6.1"
+    hooks:
+      - id: biome-check
+        exclude: ^.*.cjs$
+        additional_dependencies: ["@biomejs/biome@2.2.2"]
+        args:
+          - --unsafe

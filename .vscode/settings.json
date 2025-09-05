@@ -1,0 +1,32 @@
+{
+  "biome.lspPath": "biome",
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "extensions.recommendations": [
+    "biomejs.biome",
+    "ms-python.python",
+    "ms-python.ruff",
+    "hashicorp.terraform"
+  ],
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/node_modules": true
+  },
+  "git.enableSmartCommit": true,
+  "python.defaultInterpreterPath": "./venv/bin/python",
+  "python.linting.enabled": true,
+  "python.linting.ruffEnabled": true,
+  "search.exclude": {
+    "**/.git": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/node_modules": true
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terraform.format.enable": true
+}
