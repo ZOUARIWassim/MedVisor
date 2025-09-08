@@ -1,0 +1,34 @@
+services:
+  notebook:
+    container_name: notebook
+    image: notebook
+    build:
+      context: ai_services
+      target: notebook
+    ports:
+      - 8899:8888
+    env_file:
+      - path: .env
+        required : false
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/credentials.json
+    volumes:
+      - ./ai_services/:/code
+      - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
+    tty: true
+
+  vscode-server:
+    container_name: vscode-server
+    image: vs-code
+    build:
+      context: ai_services
+      target: vscode
+    env_file:
+      - path: .env
+        required : false
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/credentials.json
+    volumes:
+      - ./ai_services/:/code
+      - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
+    tty: true

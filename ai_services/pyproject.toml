@@ -6,11 +6,27 @@ authors = [
     {name = "ZOUARIWassim",email = "wassim.zouari07@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
+    "transformers (>=4.56.1,<5.0.0)",
+    "ipykernel (>=6.30.1,<7.0.0)",
+    "torch (>=2.8.0,<3.0.0)",
+    "ipywidgets (>=8.1.7,<9.0.0)",
+    "google-genai (>=1.33.0,<2.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.prod.dependencies]
+google-cloud-speech = "^2.33.0"
+
+
+[tool.poetry.group.dev.dependencies]
+google-cloud-speech = "^2.33.0"
+
+
+[tool.poetry.group.notebook.dependencies]
+jupyter = "^1.1.1"

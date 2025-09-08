@@ -18,7 +18,7 @@
     "**/node_modules": true
   },
   "git.enableSmartCommit": true,
-  "python.defaultInterpreterPath": "./venv/bin/python",
+  "python.defaultInterpreterPath": "/Users/wassim/Library/Caches/pypoetry/virtualenvs/ai-services-ac24aI3R-py3.12/bin/python3",
   "python.linting.enabled": true,
   "python.linting.ruffEnabled": true,
   "search.exclude": {
