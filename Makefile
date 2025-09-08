@@ -12,3 +12,9 @@ run.vscode:
 
 run.notebook:
 	docker compose -f docker-compose.local.yml up --remove-orphans notebook
+
+build.ai-services:
+	docker compose -f docker-compose.local.yml build ai-services
+
+run.ai-services:
+	docker compose -f docker-compose.local.yml up --remove-orphans ai-services

@@ -28,6 +28,7 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 FROM base AS dev
 COPY --from=dev-stage /code/requirements.txt /code/requirements.dev.txt
 RUN pip install --no-cache-dir -r /code/requirements.dev.txt
+RUN pip install --no-cache-dir uvicorn
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
 FROM base AS notebook

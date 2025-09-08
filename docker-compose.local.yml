@@ -32,3 +32,21 @@ services:
       - ./ai_services/:/code
       - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
     tty: true
+
+  ai-services:
+    container_name: ai-services
+    image: ai-services
+    build:
+      context: ai_services
+      target: dev
+    ports:
+      - 8001:8000
+    env_file:
+      - path: .env
+        required : false
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/credentials.json
+    volumes:
+      - ./ai_services/:/code
+      - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
+    tty: true
