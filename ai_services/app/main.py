@@ -1,6 +1,6 @@
 import logging
 
-from app.routes import router_speech_to_text
+from app.routes import router_report_generator, router_speech_to_text
 from fastapi import FastAPI
 
 # from fastapi.middleware.cors import CORSMiddleware
@@ -17,3 +17,4 @@ async def check_health():
 
 
 app.include_router(router_speech_to_text, prefix="/speech_to_text", tags=["speech_to_text"])
+app.include_router(router_report_generator, prefix="/report_generator", tags=["report_generator"])
