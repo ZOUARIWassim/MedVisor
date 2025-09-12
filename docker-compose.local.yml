@@ -1,7 +1,7 @@
 services:
   notebook:
-    container_name: notebook
-    image: notebook
+    container_name: notebook_medvisor
+    image: notebook-medvisor
     build:
       context: ai_services
       target: notebook
@@ -18,8 +18,8 @@ services:
     tty: true
 
   vscode-server:
-    container_name: vscode-server
-    image: vs-code
+    container_name: vscode-server-medvisor
+    image: vscode-server-medvisor
     build:
       context: ai_services
       target: vscode
@@ -34,8 +34,8 @@ services:
     tty: true
 
   ai-services:
-    container_name: ai-services
-    image: ai-services
+    container_name: ai-services-medvisor
+    image: ai-services-medvisor
     build:
       context: ai_services
       target: dev
@@ -50,3 +50,22 @@ services:
       - ./ai_services/:/code
       - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
     tty: true
+
+  mlflow:
+    container_name: mlflow-medvisor
+    image: mlflow-medvisor
+    build:
+      context: ai_services
+      target: mlflow
+    ports:
+      - 5001:5000
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow/mlflow.db
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    volumes:
+      - mlflow-data:/mlflow
+    restart: unless-stopped
+    tty: true
+
+volumes:
+  mlflow-data:

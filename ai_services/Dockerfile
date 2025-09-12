@@ -20,6 +20,7 @@ RUN bash -c "poetry export -f requirements.txt --output requirements.txt --witho
 
 FROM python:${PYTHON_VERSION}-slim AS base
 WORKDIR /code
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir --upgrade setuptools wheel
 COPY --from=run-stage /code/requirements.txt /code/requirements.txt
@@ -41,3 +42,11 @@ FROM base AS vscode
 COPY --from=vscode-stage /code/requirements.txt /code/requirements.vs-code.txt
 RUN pip install --no-cache-dir -r /code/requirements.vs-code.txt
 COPY . .
+
+FROM base AS mlflow
+COPY --from=vscode-stage /code/requirements.txt /code/requirements.mlflow.txt
+RUN pip install --no-cache-dir -r /code/requirements.mlflow.txt
+COPY . .
+RUN mkdir -p /mlflow/artifacts && \
+    chmod -R 755 /mlflow
+CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "${MLFLOW_BACKEND_STORE_URI}", "--default-artifact-root", "${MLFLOW_DEFAULT_ARTIFACT_ROOT}"]

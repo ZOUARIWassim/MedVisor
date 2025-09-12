@@ -1,5 +1,5 @@
-build.vs-code:
-	docker compose -f docker-compose.local.yml build vs-code
+build.vscode:
+	docker compose -f docker-compose.local.yml build vscode-server
 
 build.notebook:
 	docker compose -f docker-compose.local.yml build notebook
@@ -18,3 +18,9 @@ build.ai-services:
 
 run.ai-services:
 	docker compose -f docker-compose.local.yml up --remove-orphans ai-services
+
+build.mlflow:
+	docker compose -f docker-compose.local.yml build mlflow
+
+run.mlflow:
+	docker compose -f docker-compose.local.yml up --remove-orphans mlflow
