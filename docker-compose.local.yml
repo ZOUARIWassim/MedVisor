@@ -12,9 +12,13 @@ services:
         required : false
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/credentials.json
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_EXPERIMENT_NAME=medvisor-experiment
+      - MLFLOW_RUN=medvisor-run
     volumes:
       - ./ai_services/:/code
       - ./.credentials/local-credentials.json:/tmp/keys/credentials.json:ro
+      - mlflow-data:/mlflow
     tty: true
 
   vscode-server:
@@ -59,9 +63,6 @@ services:
       target: mlflow
     ports:
       - 5001:5000
-    environment:
-      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow/mlflow.db
-      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
     volumes:
       - mlflow-data:/mlflow
     restart: unless-stopped

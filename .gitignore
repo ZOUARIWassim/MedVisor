@@ -21,4 +21,7 @@ coverage/
 *.env.*
 .envrc
 
+data/
+ultralytics_runs/
+
 .credentials/

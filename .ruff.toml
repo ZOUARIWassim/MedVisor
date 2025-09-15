@@ -5,6 +5,7 @@ fix = true
 [lint]
 select = ["E", "F", "I", "UP"]  # pycodestyle, pyflakes, isort, pyupgrade
 ignore = ["E501"]               # example: ignore line length if needed
+exclude = ["*.ipynb"]           # exclude ipynb files
 
 [format]
 quote-style = "double"

@@ -44,9 +44,13 @@ RUN pip install --no-cache-dir -r /code/requirements.vs-code.txt
 COPY . .
 
 FROM base AS mlflow
-COPY --from=vscode-stage /code/requirements.txt /code/requirements.mlflow.txt
+RUN mkdir -p /mlflow/artifacts && chmod -R 777 /mlflow
+ENV MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+COPY --from=run-stage /code/requirements.txt /code/requirements.mlflow.txt
 RUN pip install --no-cache-dir -r /code/requirements.mlflow.txt
 COPY . .
-RUN mkdir -p /mlflow/artifacts && \
-    chmod -R 755 /mlflow
-CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "${MLFLOW_BACKEND_STORE_URI}", "--default-artifact-root", "${MLFLOW_DEFAULT_ARTIFACT_ROOT}"]
+CMD ["mlflow", "server", \
+     "--host", "0.0.0.0", \
+     "--port", "5000", \
+     "--backend-store-uri", "sqlite:////mlflow/mlflow.db", \
+     "--default-artifact-root", "/mlflow/artifacts"]
